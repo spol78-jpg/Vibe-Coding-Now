@@ -45,7 +45,14 @@ fi
 echo ""
 echo "► [5/6] Installing dependencies and building..."
 npm install
-npm run build
+export NODE_OPTIONS="--max_old_space_size=1536"
+npm run build 2>&1 | tee /tmp/build.log
+if [ ${PIPESTATUS[0]} -ne 0 ]; then
+  echo ""
+  echo "❌ Build failed! Last 50 lines of log:"
+  tail -50 /tmp/build.log
+  exit 1
+fi
 
 # ─── 6. Start with PM2 ───
 echo ""

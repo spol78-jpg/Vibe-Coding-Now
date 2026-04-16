@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { fadeInUp, fadeInDown, fadeInLeft, fadeInRight } from '@/lib/animations'
 
 interface FadeInViewProps {
   children: React.ReactNode
@@ -10,11 +9,11 @@ interface FadeInViewProps {
   className?: string
 }
 
-const variantMap = {
-  up: fadeInUp,
-  down: fadeInDown,
-  left: fadeInLeft,
-  right: fadeInRight,
+const directionMap = {
+  up:    { y: 30 },
+  down:  { y: -30 },
+  left:  { x: -40 },
+  right: { x: 40 },
 }
 
 export function FadeInView({
@@ -23,25 +22,14 @@ export function FadeInView({
   direction = 'up',
   className,
 }: FadeInViewProps) {
-  const variant = variantMap[direction]
+  const offset = directionMap[direction]
 
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
+      initial={{ opacity: 0, ...offset }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      variants={{
-        hidden: variant.hidden,
-        visible: {
-          ...(variant.visible as object),
-          transition: {
-            ...(typeof variant.visible === 'object' && 'transition' in variant.visible
-              ? (variant.visible as { transition: object }).transition
-              : {}),
-            delay,
-          },
-        },
-      }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay }}
       className={className}
     >
       {children}
