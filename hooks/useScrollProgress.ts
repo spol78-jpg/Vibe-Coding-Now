@@ -9,11 +9,12 @@ export function useScrollProgress() {
   return scrollYProgress
 }
 
-export function useElementScrollProgress(
-  offset: ['start end' | 'end start' | string, 'start end' | 'end start' | string] = ['start end', 'end start']
-) {
+export function useElementScrollProgress() {
   const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset })
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
   return { ref, scrollYProgress }
 }
 
