@@ -8,12 +8,22 @@ import { FadeInView } from '@/components/animations/FadeInView'
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--bg-primary)]">
-      {/* Animated gradient background */}
+      {/* Animated gradient background — CSS @keyframes + background-position */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-40 animate-gradient-shift"
         style={{
           background:
-            'radial-gradient(ellipse at 20% 50%, rgba(0,255,135,0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(123,47,255,0.15) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(255,107,53,0.1) 0%, transparent 50%)',
+            'linear-gradient(135deg, rgba(0,255,135,0.12) 0%, rgba(123,47,255,0.1) 25%, rgba(255,107,53,0.08) 50%, rgba(0,255,135,0.1) 75%, rgba(123,47,255,0.12) 100%)',
+          backgroundSize: '400% 400%',
+        }}
+      />
+
+      {/* Dot grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, var(--text-primary) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
         }}
       />
 
